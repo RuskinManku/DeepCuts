@@ -40,7 +40,8 @@ class TrainingExperiment(Experiment):
                  pretrained=False,
                  resume=None,
                  resume_optim=False,
-                 save_freq=10):
+                 save_freq=10,
+                 is_LTH=False):
 
         # Default children kwargs
         super(TrainingExperiment, self).__init__(seed)
@@ -55,7 +56,7 @@ class TrainingExperiment(Experiment):
 
         self.build_dataloader(dataset, **dl_kwargs)
 
-        self.build_model(model, pretrained, resume)
+        self.build_model(model, pretrained, resume,is_LTH)
 
         self.build_train(resume_optim=resume_optim, **train_kwargs)
 
@@ -76,7 +77,7 @@ class TrainingExperiment(Experiment):
         self.train_dl = DataLoader(self.train_dataset, shuffle=True, **dl_kwargs)
         self.val_dl = DataLoader(self.val_dataset, shuffle=False, **dl_kwargs)
 
-    def build_model(self, model, pretrained=True, resume=None):
+    def build_model(self, model, pretrained=True, resume=None,is_LTH=False):
         if isinstance(model, str):
             if hasattr(models, model):
                 model = getattr(models, model)(pretrained=pretrained)
@@ -89,7 +90,9 @@ class TrainingExperiment(Experiment):
                 raise ValueError(f"Model {model} not available in custom models or torchvision models")
 
         self.model = model
-
+        if is_LTH:
+            print("Saving model initial state for LTH")
+            self.initial_state=model.state_dict()
         if resume is not None:
             self.resume = pathlib.Path(self.resume)
             assert self.resume.exists(), "Resume path does not exist"
@@ -186,6 +189,7 @@ class TrainingExperiment(Experiment):
                     y =y.to(self.device)
                 else:
                     x, y = x.to(self.device), y.to(self.device)
+                self.model.to("cuda:0")
                 yhat = self.model(x)
                 loss = self.loss_func(yhat, y)
                 if train:

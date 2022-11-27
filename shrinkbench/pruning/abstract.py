@@ -14,7 +14,7 @@ class Pruning(ABC):
     """Base class for Pruning operations
     """
 
-    def __init__(self, model, inputs=None, outputs=None, **pruning_params):
+    def __init__(self, model, inputs=None, outputs=None,is_LTH=False,init_path_LTH=None, **pruning_params):
         """Construct Pruning class
 
         Passed params are set as attributes for convienence and
@@ -31,6 +31,8 @@ class Pruning(ABC):
         self.inputs = inputs
         self.outputs = outputs
         self.pruning_params = list(pruning_params.keys())
+        self.is_LTH=is_LTH
+        self.init_path_LTH=init_path_LTH
         for k, v in pruning_params.items():
             setattr(self, k, v)
 
@@ -46,6 +48,11 @@ class Pruning(ABC):
     def apply(self, masks=None):
         if masks is None:
             masks = self.model_masks()
+        if self.is_LTH:
+            if self.init_path_LTH:
+                print("Returning model to initial state dict")
+                self.model.load_state_dict(self.init_path_LTH,strict=False)
+                self.model.to("cpu")
         return mask_module(self.model, masks)
 
     @abstractmethod

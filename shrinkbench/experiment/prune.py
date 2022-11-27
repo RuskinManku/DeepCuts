@@ -22,20 +22,24 @@ class PruningExperiment(TrainingExperiment):
                  pretrained=True,
                  resume=None,
                  resume_optim=False,
-                 save_freq=10):
+                 save_freq=10,
+                 is_LTH=False):
 
-        super(PruningExperiment, self).__init__(dataset, model, seed, path, dl_kwargs, train_kwargs, debug, pretrained, resume, resume_optim, save_freq)
+        super(PruningExperiment, self).__init__(dataset, model, seed, path, dl_kwargs, train_kwargs, debug, pretrained, resume, resume_optim, save_freq,is_LTH)
         self.add_params(strategy=strategy, compression=compression)
         self.dataset_name=dataset
-        self.apply_pruning(strategy, compression)
+        self.apply_pruning(strategy, compression=1)
+        self.is_LTH=is_LTH
+        self.prune_strategy=strategy
+        self.prune_compression=compression
 
         self.path = path
         self.save_freq = save_freq
 
-    def apply_pruning(self, strategy, compression):
+    def apply_pruning(self, strategy, compression,is_LTH=False,init_path_LTH=None):
         constructor = getattr(strategies, strategy)
         x, y = next(iter(self.train_dl))
-        self.pruning = constructor(self.model, x, y, compression=compression)
+        self.pruning = constructor(self.model, x, y, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH)
         self.pruning.apply()
         printc("Masked model", color='GREEN')
 
@@ -49,6 +53,14 @@ class PruningExperiment(TrainingExperiment):
 
         # if self.pruning.compression > 1:
         self.run_epochs()
+        if self.is_LTH:
+            print("Now pruning and returning model to initial state, for running again")
+            if self.initial_state is None:
+                print("Error: Initial state not found")
+            self.apply_pruning(self.prune_strategy,self.prune_compression,self.is_LTH,self.initial_state)
+        self.save_metrics()
+        self.run_epochs()
+
 
     def save_metrics(self):
         self.metrics = self.pruning_metrics()

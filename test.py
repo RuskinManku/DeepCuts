@@ -1,11 +1,12 @@
 from shrinkbench.experiment import PruningExperiment
 
 
-for strategy in ['LayerMagWeight','GlobalMagWeight']:
-    for  c in [1,1.25,1.5,2,2.5]:
+for strategy in ['GlobalMagWeight']:
+    for  c in [1.25]:
         exp = PruningExperiment(dataset='SST2DATA', 
                                 model='BertNet',
                                 strategy=strategy,
                                 compression=c,
-                                train_kwargs={'epochs':6})
+                                train_kwargs={'epochs':6},
+                                is_LTH=True)
         exp.run()
