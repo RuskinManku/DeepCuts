@@ -28,7 +28,7 @@ class PruningExperiment(TrainingExperiment):
         super(PruningExperiment, self).__init__(dataset, model, seed, path, dl_kwargs, train_kwargs, debug, pretrained, resume, resume_optim, save_freq,is_LTH)
         self.add_params(strategy=strategy, compression=compression)
         self.dataset_name=dataset
-        self.apply_pruning(strategy, compression=1)
+        self.apply_pruning(strategy, compression)
         self.is_LTH=is_LTH
         self.prune_strategy=strategy
         self.prune_compression=compression
@@ -54,10 +54,11 @@ class PruningExperiment(TrainingExperiment):
         # if self.pruning.compression > 1:
         self.run_epochs()
         if self.is_LTH:
+            
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:
                 print("Error: Initial state not found")
-            self.apply_pruning(self.prune_strategy,self.prune_compression,self.is_LTH,self.initial_state)
+            self.apply_pruning(self.prune_strategy,1,self.is_LTH,self.initial_state)
         self.save_metrics()
         self.run_epochs()
 
@@ -87,7 +88,7 @@ class PruningExperiment(TrainingExperiment):
         else:
             x, y = x.to(self.device), y.to(self.device)
 
-            # FLOPS
+        # FLOPS
             ops, ops_nz = flops(self.model, x)
             metrics['flops'] = ops
             metrics['flops_nz'] = ops_nz

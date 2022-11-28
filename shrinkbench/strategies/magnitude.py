@@ -18,7 +18,9 @@ from .utils import (fraction_threshold,
                     map_importances,
                     flatten_importances,
                     importance_masks,
-                    activation_importance)
+                    activation_importance,
+                    activation_importance_no_weight
+                    )
 
 
 class GlobalMagWeight(VisionPruning):
@@ -89,6 +91,19 @@ class LayerMagAct(ActivationMixin, LayerPruning, VisionPruning):
         params = self.module_params(module)
         input_act, _ = self.module_activations(module)
         importances = {param: np.abs(activation_importance(value, input_act))
+                       for param, value in params.items()}
+        masks = {param: fraction_mask(importances[param], self.fraction)
+                 for param, value in params.items() if value is not None}
+        return masks
+
+class LayerGradCAM(ActivationMixin, GradientMixin, LayerPruning, VisionPruning):
+
+    def layer_masks(self, module):
+        print('layer mask called')
+        params = self.module_params(module)
+        output_act = self.module_activations(module)
+        grads = self.module_param_gradients(module)
+        importances = {param: np.abs(activation_importance_no_weight(value, output_act)*grads[param])
                        for param, value in params.items()}
         masks = {param: fraction_mask(importances[param], self.fraction)
                  for param, value in params.items() if value is not None}

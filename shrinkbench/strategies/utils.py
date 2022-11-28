@@ -109,6 +109,26 @@ def activation_importance(weight, activation, norm=1):
         # for bias
         return weight * norms.mean()
 
+def activation_importance_no_weight(weight, activation, norm=1):
+    activation = activation.mean(axis=0)  # reduce batch dim
+    norms = norms_tensor(activation, norm)
+    # add filter dims
+    if len(weight.shape) > 2:
+        # normalize spatial dims
+        norms /= activation.shape[1] * activation.shape[2]
+        # TODO refactor with np.tile or similar
+        norms = norms[..., np.newaxis, np.newaxis]
+        norms = np.repeat(norms, weight.shape[2], axis=1)
+        norms = np.repeat(norms, weight.shape[3], axis=2)
+        # normalize across spatial dimensions
+
+    if len(weight.shape) > len(norms.shape):
+        # broadcasting will take care of it
+        return norms
+    else:
+        # for bias
+        return norms.mean()
+
 
 # def largest_norm_channel_mask(tensor, fraction, ord=1, matrix_mode=False):
 #     # Assume channels is first axis, true for conv & linear

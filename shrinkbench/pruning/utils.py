@@ -5,6 +5,7 @@ from collections import OrderedDict, defaultdict
 
 import torch
 from torch import nn
+import transformers
 
 
 def hook_applyfn(hook, model, forward=False, backward=False):
@@ -68,18 +69,25 @@ def get_activations(model, input):
     activations = OrderedDict()
 
     def store_activations(module, input, output):
-        if isinstance(module, nn.ReLU):
+        print(module)
+        if module in activations:
             # TODO ResNet18 implementation reuses a
             # single ReLU layer?
             return
         assert module not in activations, \
             f"{module} already in activations"
         # TODO [0] means first input, not all models have a single input
-        activations[module] = (input[0].detach().cpu().numpy().copy(),
-                               output.detach().cpu().numpy().copy(),)
+        #print(output)
+        if type(output) == type(()):
+            output = output[0]
+        if hasattr(output, 'last_hidden_state'):#transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions):
+            output = output.last_hidden_state
+
+        activations[module] = (output.detach().cpu().numpy().copy())
 
     fn, hooks = hook_applyfn(store_activations, model, forward=True)
     model.apply(fn)
+    model = model.to('cuda:0')
     with torch.no_grad():
         model(input)
 
@@ -112,10 +120,15 @@ def get_param_gradients(model, inputs, outputs, loss_func=None, by_module=True):
         loss_func = nn.CrossEntropyLoss()
 
     training = model.training
+    print("LMAo")
     model.train()
+    model = model.to('cuda:0')
+    outputs = outputs.to('cuda:0')
     pred = model(inputs)
     loss = loss_func(pred, outputs)
     loss.backward()
+    print("end")
+    model = model.to('cpu')
 
     if by_module:
         gradients = defaultdict(OrderedDict)
