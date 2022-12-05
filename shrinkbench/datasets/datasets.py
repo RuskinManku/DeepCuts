@@ -192,9 +192,9 @@ class STSBDL(Dataset):
 
 def STSBDATA(train=True, path=None):
     if(train):
-        out=STSB(split="train")
+        out=load_dataset("stsb_multi_mt", name="en", split="train")
         out_dl=STSBDL(out)
     else:
-        out=STSB(split="dev")
+        out=load_dataset("stsb_multi_mt", name="en", split="dev")
         out_dl=STSBDL(out)
     return out_dl
