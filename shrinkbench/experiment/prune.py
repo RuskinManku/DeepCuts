@@ -48,16 +48,16 @@ class PruningExperiment(TrainingExperiment):
         iterator = iter(self.train_dl)
         x,y = next(iterator, (None, None))
         params_ = {'compression': self.prune_compression, 'strategy': self.prune_strategy}
-        self.pruning = constructor(self.model, x, y, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH,strategy=self.prune_strategy)
+        self.pruning = constructor(self.model, x, y, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH,dataset_name=self.dataset_name,strategy=self.prune_strategy)
         i=0
         while True:
             i+=1
             print(i)
 
             x2,y2 = next(iterator, (None, None))
-            to_steps=2
+            to_steps=1000
             if strategy in ('LayerSmoothGrad','LayerSmoothGradCAM'):
-                to_steps=2
+                to_steps=100
             if x2!=None and i<to_steps and strategy in ('LayerGradCAM','GlobalGradCAMShift','GlobalGradCAM','LayerSmoothGrad','LayerSmoothGradCAM','LayerGradCAMShift'):
                 self.pruning.inputs = x
                 self.pruning.outputs = y
@@ -84,9 +84,9 @@ class PruningExperiment(TrainingExperiment):
         self.save_metrics()
 
         # if self.pruning.compression > 1:
-        self.epochs=1
+        self.epochs=3
         self.run_epochs()
-        self.epochs=1
+        self.epochs=8
         if self.is_LTH:
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:

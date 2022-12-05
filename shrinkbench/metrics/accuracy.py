@@ -2,7 +2,7 @@ import numpy as np
 import torch
 
 
-def correct(output, target, topk=(1,)):
+def correct(output, target, topk=(1,),dataset_name=None):
     """Computes how many correct outputs with respect to targets
 
     Does NOT compute accuracy but just a raw amount of correct
@@ -23,8 +23,8 @@ def correct(output, target, topk=(1,)):
     Returns:
         List(int) -- Number of correct values for each topk
     """
-    # if dataset == 'STSBDATA':
-    #     return (output-target)**2
+    if dataset_name == 'STSBDATA':
+        return (output-target)**2
     
     with torch.no_grad():
         cnt=0

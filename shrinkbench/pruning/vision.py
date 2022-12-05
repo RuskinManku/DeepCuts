@@ -7,8 +7,8 @@ from .modules import MaskedModule
 
 class VisionPruning(Pruning):
 
-    def __init__(self, model, inputs=None, outputs=None, compression=1,is_LTH=False,init_path_LTH=None, strategy=None):
-        super().__init__(model, inputs, outputs, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH, compression_=compression, strategy=strategy)
+    def __init__(self, model, inputs=None, outputs=None, compression=1,is_LTH=False,init_path_LTH=None, dataset_name=None,strategy=None):
+        super().__init__(model, inputs, outputs, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH, dataset_name=dataset_name,compression_=compression, strategy=strategy)
         self.prunable = self.prunable_modules()
         self.fraction = fraction_to_keep(self.compression, self.model, self.prunable)
 

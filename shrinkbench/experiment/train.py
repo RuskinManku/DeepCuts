@@ -202,7 +202,7 @@ class TrainingExperiment(Experiment):
                     self.optim.step()
                     self.optim.zero_grad()
 
-                c1= correct(yhat, y, (0,2))
+                c1= correct(yhat, y, (0,2),self.dataset_name)
                 total_loss.add(loss.item() / dl.batch_size)
                 acc1.add(c1 / dl.batch_size)
                 acc5.add(0 / dl.batch_size)
