@@ -1,0 +1,4 @@
+{
+    "experiment": "'PruningExperiment'",
+    "params": "{'dataset': 'STSBDATA', 'model': 'BertModelSTSB', 'seed': 42, 'path': None, 'dl_kwargs': {'batch_size': 16, 'pin_memory': False, 'num_workers': 8}, 'train_kwargs': {'optim': 'Adam', 'epochs': 1, 'lr': 2e-05}, 'debug': False, 'pretrained': True, 'resume': None, 'resume_optim': False, 'save_freq': 10, 'is_LTH': True, 'strategy': 'LayerSmoothGradCAM', 'compression': 3.5}"
+}

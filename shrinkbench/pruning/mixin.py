@@ -34,7 +34,7 @@ class GradientMixin(Pruning):
             "Inputs and Outputs must be provided for gradients"
         loss_func = None
         if self.dataset_name == 'STSBDATA':
-            loss_func = nn.MSELoss()
+            loss_func = nn.MSELoss(reduction='sum')
         else:
             loss_func = None
         self._param_gradients = get_param_gradients(self.model, self.inputs, self.outputs, include_smoothing = include_smoothing, loss_func=loss_func)

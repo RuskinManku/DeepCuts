@@ -1,9 +1,9 @@
 import torch.nn as nn
 from transformers import BertModel,BertTokenizer
-class BertNet(nn.Module):
+class BertModelSTSB(nn.Module):
     def __init__(self, pretrained=False):
         # assert not pretrained, f"{self.__class__.__name__} does not support pretrained weights"
-        super(BertNet, self).__init__()
+        super(BertModelSTSB, self).__init__()
         self.bert_model=BertModel.from_pretrained("bert-base-uncased")
         self.tokenizer=BertTokenizer.from_pretrained("bert-base-uncased")
         self.regressor=nn.Linear(768,1)

@@ -26,7 +26,7 @@ class TrainingExperiment(Experiment):
 
     default_train_kwargs = {'optim': 'Adam',
                             'epochs': 30,
-                            'lr': 1e-5,
+                            'lr': 2e-5,
                             }
 
     def __init__(self,
@@ -125,7 +125,7 @@ class TrainingExperiment(Experiment):
 
         # Assume classification experiment
         if self.dataset_name=='STSBDATA':
-            self.loss_func=nn.MSELoss()
+            self.loss_func=nn.MSELoss(reduction='sum')
         else:
             self.loss_func = nn.CrossEntropyLoss()
 
@@ -191,10 +191,14 @@ class TrainingExperiment(Experiment):
             for i, (x, y) in enumerate(epoch_iter, start=1):
                 if self.dataset_name in ["SST2DATA", 'STSBDATA']:
                     y =y.to(self.device)
+                    if self.dataset_name=="STSBDATA":
+                        y=y.float()
+                        y=y.view(-1,1)
                 else:
                     x, y = x.to(self.device), y.to(self.device)
                 self.model.to("cuda:0")
                 yhat = self.model(x)
+
                 loss = self.loss_func(yhat, y)
                 if train:
                     loss.backward()
@@ -203,6 +207,7 @@ class TrainingExperiment(Experiment):
                     self.optim.zero_grad()
 
                 c1= correct(yhat, y, (0,2),self.dataset_name)
+
                 total_loss.add(loss.item() / dl.batch_size)
                 acc1.add(c1 / dl.batch_size)
                 acc5.add(0 / dl.batch_size)
