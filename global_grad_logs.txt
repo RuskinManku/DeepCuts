@@ -1,0 +1,104 @@
+Saving model initial state for LTH
+in Adam
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.99)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: False
+    lr: 1e-05
+    maximize: False
+    weight_decay: 0
+)
+I AM HERE WITH 1
+1
+Updating activations
+updating gradients
+[92mMasked model
+[0mRunning bitch
+[33mRunning {
+    "dataset": "SST2DATA",
+    "model": "BertNet",
+    "seed": 42,
+    "path": null,
+    "dl_kwargs": {
+        "batch_size": 16,
+        "pin_memory": false,
+        "num_workers": 8
+    },
+    "train_kwargs": {
+        "optim": "Adam",
+        "epochs": 1,
+        "lr": 1e-05
+    },
+    "debug": false,
+    "pretrained": true,
+    "resume": null,
+    "resume_optim": false,
+    "save_freq": 10,
+    "is_LTH": true,
+    "strategy": "GlobalGradCAM",
+    "compression": 3.5
+}
+[0m[93mGPU AVAILABLE
+[0m[95mLogging results to results/20221204-174156-QUUR-9e31729b8dbea4f3f6faa72a5aa1edd9
+[0m[32m{
+    "size": 109483778,
+    "size_nz": 109483778,
+    "compression_ratio": 1.0,
+    "loss": 0.046417027113160925,
+    "val_acc1": 0.4955357142857143,
+    "val_acc5": 0.0
+}
+[0m                                           module  ... prunable
+0           bert_model.embeddings.word_embeddings  ...    False
+1       bert_model.embeddings.position_embeddings  ...    False
+2     bert_model.embeddings.token_type_embeddings  ...    False
+3                 bert_model.embeddings.LayerNorm  ...    False
+4                 bert_model.embeddings.LayerNorm  ...    False
+..                                            ...  ...      ...
+196  bert_model.encoder.layer.11.output.LayerNorm  ...    False
+197                       bert_model.pooler.dense  ...     True
+198                       bert_model.pooler.dense  ...     True
+199                                    classifier  ...    False
+200                                    classifier  ...    False
+
+[201 rows x 6 columns]
+[33mStart epoch 0
+[0mNow pruning and returning model to initial state, for running again
+I AM HERE WITH 3.5
+1
+Updating activations
+updating gradients
+Returning model to initial state dict
+[92mMasked model
+[0m[32m{
+    "size": 109483778,
+    "size_nz": 32489742,
+    "compression_ratio": 3.369795241833561,
+    "loss": 0.04340139536985328,
+    "val_acc1": 0.4776785714285714,
+    "val_acc5": 0.0
+}
+[0m                                           module  ... prunable
+0           bert_model.embeddings.word_embeddings  ...    False
+1       bert_model.embeddings.position_embeddings  ...    False
+2     bert_model.embeddings.token_type_embeddings  ...    False
+3                 bert_model.embeddings.LayerNorm  ...    False
+4                 bert_model.embeddings.LayerNorm  ...    False
+..                                            ...  ...      ...
+196  bert_model.encoder.layer.11.output.LayerNorm  ...    False
+197                       bert_model.pooler.dense  ...     True
+198                       bert_model.pooler.dense  ...     True
+199                                    classifier  ...    False
+200                                    classifier  ...    False
+
+[201 rows x 6 columns]
+[33mStart epoch 0
+[0m[33mStart epoch 1
+[0m[33mStart epoch 2
+[0m[33mStart epoch 3
+[0m

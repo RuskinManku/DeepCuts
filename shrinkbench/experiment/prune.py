@@ -28,22 +28,54 @@ class PruningExperiment(TrainingExperiment):
         super(PruningExperiment, self).__init__(dataset, model, seed, path, dl_kwargs, train_kwargs, debug, pretrained, resume, resume_optim, save_freq,is_LTH)
         self.add_params(strategy=strategy, compression=compression)
         self.dataset_name=dataset
-        self.apply_pruning(strategy, compression)
-        self.is_LTH=is_LTH
         self.prune_strategy=strategy
         self.prune_compression=compression
+        if is_LTH:
+            self.apply_pruning(strategy, compression=1)
+        else:
+            self.apply_pruning(strategy, compression)
+        self.is_LTH=is_LTH
+        
 
         self.path = path
         self.save_freq = save_freq
 
     def apply_pruning(self, strategy, compression,is_LTH=False,init_path_LTH=None):
+        print(f"I AM HERE WITH {compression}")
         constructor = getattr(strategies, strategy)
-        x, y = next(iter(self.train_dl))
-        self.pruning = constructor(self.model, x, y, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH)
-        self.pruning.apply()
+        initialized = False
+        # print(self.train_dl)
+        iterator = iter(self.train_dl)
+        x,y = next(iterator, (None, None))
+        params_ = {'compression': self.prune_compression, 'strategy': self.prune_strategy}
+        self.pruning = constructor(self.model, x, y, compression=compression,is_LTH=is_LTH,init_path_LTH=init_path_LTH,strategy=self.prune_strategy)
+        i=0
+        while True:
+            i+=1
+            print(i)
+
+            x2,y2 = next(iterator, (None, None))
+            to_steps=2
+            if strategy in ('LayerSmoothGrad','LayerSmoothGradCAM'):
+                to_steps=2
+            if x2!=None and i<to_steps and strategy in ('LayerGradCAM','GlobalGradCAMShift','GlobalGradCAM','LayerSmoothGrad','LayerSmoothGradCAM','LayerGradCAMShift'):
+                self.pruning.inputs = x
+                self.pruning.outputs = y
+                self.pruning.apply(make_mask = False, next_iter = True)
+            else:
+                self.pruning.inputs = x
+                self.pruning.outputs = y
+                self.pruning.apply(make_mask = True, next_iter = True)
+                break
+
+            if compression==1:
+                break
+            x,y = x2,y2
+
         printc("Masked model", color='GREEN')
 
     def run(self):
+        print("Running bitch")
         self.freeze()
         printc(f"Running {repr(self)}", color='YELLOW')
         self.to_device()
@@ -52,15 +84,17 @@ class PruningExperiment(TrainingExperiment):
         self.save_metrics()
 
         # if self.pruning.compression > 1:
+        self.epochs=1
         self.run_epochs()
+        self.epochs=1
         if self.is_LTH:
-            
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:
                 print("Error: Initial state not found")
-            self.apply_pruning(self.prune_strategy,1,self.is_LTH,self.initial_state)
-        self.save_metrics()
-        self.run_epochs()
+                exit()
+            self.apply_pruning(self.prune_strategy,self.prune_compression,self.is_LTH,self.initial_state)
+            self.save_metrics()
+            self.run_epochs()
 
 
     def save_metrics(self):
@@ -83,7 +117,7 @@ class PruningExperiment(TrainingExperiment):
         metrics['compression_ratio'] = size / size_nz
 
         x, y = next(iter(self.val_dl))
-        if self.dataset_name=="SST2DATA":
+        if self.dataset_name in ["SST2DATA", 'STSBDATA']:
             pass
         else:
             x, y = x.to(self.device), y.to(self.device)

@@ -23,7 +23,9 @@ def correct(output, target, topk=(1,)):
     Returns:
         List(int) -- Number of correct values for each topk
     """
-
+    # if dataset == 'STSBDATA':
+    #     return (output-target)**2
+    
     with torch.no_grad():
         cnt=0
         for i,val in enumerate(output):

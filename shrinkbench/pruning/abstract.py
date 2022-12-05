@@ -4,6 +4,8 @@ from collections import OrderedDict
 import numpy as np
 import pandas as pd
 
+import os, json, pickle
+
 from .mask import mask_module
 from .modules import MaskedModule
 from .utils import get_params
@@ -14,7 +16,7 @@ class Pruning(ABC):
     """Base class for Pruning operations
     """
 
-    def __init__(self, model, inputs=None, outputs=None,is_LTH=False,init_path_LTH=None, **pruning_params):
+    def __init__(self, model, inputs=None, outputs=None,is_LTH=False,init_path_LTH=None,dataset_name=None, compression_=None, strategy=None, **pruning_params):
         """Construct Pruning class
 
         Passed params are set as attributes for convienence and
@@ -33,6 +35,10 @@ class Pruning(ABC):
         self.pruning_params = list(pruning_params.keys())
         self.is_LTH=is_LTH
         self.init_path_LTH=init_path_LTH
+        self.importances = dict()
+        self.dataset_name=dataset_name
+        self.compression_ = compression_
+        self.strategy = strategy
         for k, v in pruning_params.items():
             setattr(self, k, v)
 
@@ -45,15 +51,20 @@ class Pruning(ABC):
         pass
         # return masks
 
-    def apply(self, masks=None):
+    def apply(self, masks=None, make_mask = False, next_iter = False):
         if masks is None:
-            masks = self.model_masks()
-        if self.is_LTH:
+            masks = self.model_masks(make_mask = make_mask, next_iter = next_iter,)
+        if self.is_LTH and make_mask:
             if self.init_path_LTH:
                 print("Returning model to initial state dict")
                 self.model.load_state_dict(self.init_path_LTH,strict=False)
                 self.model.to("cpu")
-        return mask_module(self.model, masks)
+        if masks is not None:
+            # directory = '/home/ruskin/Desktop/DeepCuts/DeepCuts/results/masks/{}'.format(self.strategy+'_'+str(self.compression_)+'.txt')
+            # with open(directory, mode='w') as fp:
+            #     fp.write(str(masks))
+            
+            return mask_module(self.model, masks)
 
     @abstractmethod
     def can_prune(self, module):
@@ -108,7 +119,7 @@ class LayerPruning(Pruning):
         pass
         # return masks
 
-    def model_masks(self, prunable=None):
+    def model_masks(self, prunable=None,make_mask=False,next_iter=False):
         """Compute masks using the said strategy for every module
         This is a straight forward implementation that supports
         strategies that prune each module independently
@@ -116,7 +127,6 @@ class LayerPruning(Pruning):
         masks = OrderedDict()
         if prunable is None:
             prunable = self.prunable_modules()
-
         for module in prunable:
             masks_ = self.layer_masks(module)
             if masks_ is not None:

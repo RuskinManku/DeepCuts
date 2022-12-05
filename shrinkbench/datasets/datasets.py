@@ -5,8 +5,9 @@ from torchvision import transforms, datasets
 
 
 from . import places365
-from torchtext.datasets import SST2
-
+from torchtext.datasets import SST2,STSB
+from datasets import load_dataset
+from torch.utils.data import Dataset
 _constructors = {
     'MNIST': datasets.MNIST,
     'CIFAR10': datasets.CIFAR10,
@@ -171,3 +172,29 @@ def SST2DATA(train=True, path=None):
     else:
         out=SST2(split="dev")
     return out
+
+class STSBDL(Dataset):
+    def __init__(self, hug_data):
+        """
+        Args:
+            csv_file (string): Path to the csv file with annotations.
+            root_dir (string): Directory with all the images.
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.hug_data=hug_data
+
+    def __len__(self):
+        return len(self.hug_data)
+
+    def __getitem__(self, idx):
+        return ((self.hug_data[idx]['sentence1'],self.hug_data[idx]['sentence2']),self.hug_data[idx]['similarity_score'])
+
+def STSBDATA(train=True, path=None):
+    if(train):
+        out=STSB(split="train")
+        out_dl=STSBDL(out)
+    else:
+        out=STSB(split="dev")
+        out_dl=STSBDL(out)
+    return out_dl

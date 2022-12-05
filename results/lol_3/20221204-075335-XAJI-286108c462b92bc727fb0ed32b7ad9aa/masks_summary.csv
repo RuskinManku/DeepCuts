@@ -1,0 +1,202 @@
+,module,param,comp,size,shape,prunable
+0,bert_model.embeddings.word_embeddings,weight,1.0,23440896,"(30522, 768)",False
+1,bert_model.embeddings.position_embeddings,weight,1.0,393216,"(512, 768)",False
+2,bert_model.embeddings.token_type_embeddings,weight,1.0,1536,"(2, 768)",False
+3,bert_model.embeddings.LayerNorm,weight,1.0,768,"(768,)",False
+4,bert_model.embeddings.LayerNorm,bias,1.0,768,"(768,)",False
+5,bert_model.encoder.layer.0.attention.self.query,weight,2.4249341361418866,589824,"(768, 768)",True
+6,bert_model.encoder.layer.0.attention.self.query,bias,1.1277533039647578,768,"(768,)",True
+7,bert_model.encoder.layer.0.attention.self.key,weight,2.4932534636598906,589824,"(768, 768)",True
+8,bert_model.encoder.layer.0.attention.self.key,bias,inf,768,"(768,)",True
+9,bert_model.encoder.layer.0.attention.self.value,weight,4.324666754652237,589824,"(768, 768)",True
+10,bert_model.encoder.layer.0.attention.self.value,bias,4.19672131147541,768,"(768,)",True
+11,bert_model.encoder.layer.0.attention.output.dense,weight,4.793680320898436,589824,"(768, 768)",True
+12,bert_model.encoder.layer.0.attention.output.dense,bias,4.266666666666667,768,"(768,)",True
+13,bert_model.encoder.layer.0.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+14,bert_model.encoder.layer.0.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+15,bert_model.encoder.layer.0.intermediate.dense,weight,2.809803050029828,2359296,"(3072, 768)",True
+16,bert_model.encoder.layer.0.intermediate.dense,bias,1.0288010926969309,3072,"(3072,)",True
+17,bert_model.encoder.layer.0.output.dense,weight,3.0950638361380625,2359296,"(768, 3072)",True
+18,bert_model.encoder.layer.0.output.dense,bias,1.6480687234925602,768,"(768,)",True
+19,bert_model.encoder.layer.0.output.LayerNorm,weight,1.0,768,"(768,)",False
+20,bert_model.encoder.layer.0.output.LayerNorm,bias,1.0,768,"(768,)",False
+21,bert_model.encoder.layer.1.attention.self.query,weight,2.4329962658621462,589824,"(768, 768)",True
+22,bert_model.encoder.layer.1.attention.self.query,bias,1.4222222222222223,768,"(768,)",True
+23,bert_model.encoder.layer.1.attention.self.key,weight,2.4555127542098796,589824,"(768, 768)",True
+24,bert_model.encoder.layer.1.attention.self.key,bias,inf,768,"(768,)",True
+25,bert_model.encoder.layer.1.attention.self.value,weight,4.478134011179443,589824,"(768, 768)",True
+26,bert_model.encoder.layer.1.attention.self.value,bias,5.019607843137255,768,"(768,)",True
+27,bert_model.encoder.layer.1.attention.output.dense,weight,5.008185473314748,589824,"(768, 768)",True
+28,bert_model.encoder.layer.1.attention.output.dense,bias,1.8595640959450452,768,"(768,)",True
+29,bert_model.encoder.layer.1.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+30,bert_model.encoder.layer.1.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+31,bert_model.encoder.layer.1.intermediate.dense,weight,2.655163480284672,2359296,"(3072, 768)",True
+32,bert_model.encoder.layer.1.intermediate.dense,bias,1.0531368064032807,3072,"(3072,)",True
+33,bert_model.encoder.layer.1.output.dense,weight,2.8880980973261208,2359296,"(768, 3072)",True
+34,bert_model.encoder.layer.1.output.dense,bias,1.8285714285714285,768,"(768,)",True
+35,bert_model.encoder.layer.1.output.LayerNorm,weight,1.0,768,"(768,)",False
+36,bert_model.encoder.layer.1.output.LayerNorm,bias,1.0,768,"(768,)",False
+37,bert_model.encoder.layer.2.attention.self.query,weight,2.2613088924082625,589824,"(768, 768)",True
+38,bert_model.encoder.layer.2.attention.self.query,bias,1.391304347826087,768,"(768,)",True
+39,bert_model.encoder.layer.2.attention.self.key,weight,2.3176159406050356,589824,"(768, 768)",True
+40,bert_model.encoder.layer.2.attention.self.key,bias,inf,768,"(768,)",True
+41,bert_model.encoder.layer.2.attention.self.value,weight,4.652562828340196,589824,"(768, 768)",True
+42,bert_model.encoder.layer.2.attention.self.value,bias,3.878787878787879,768,"(768,)",True
+43,bert_model.encoder.layer.2.attention.output.dense,weight,5.178528289974096,589824,"(768, 768)",True
+44,bert_model.encoder.layer.2.attention.output.dense,bias,1.532934131736527,768,"(768,)",True
+45,bert_model.encoder.layer.2.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+46,bert_model.encoder.layer.2.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+47,bert_model.encoder.layer.2.intermediate.dense,weight,2.6133213497287526,2359296,"(3072, 768)",True
+48,bert_model.encoder.layer.2.intermediate.dense,bias,1.0563961707280967,3072,"(3072,)",True
+49,bert_model.encoder.layer.2.output.dense,weight,2.8539618602855916,2359296,"(768, 3072)",True
+50,bert_model.encoder.layer.2.output.dense,bias,1.6991149868884132,768,"(768,)",True
+51,bert_model.encoder.layer.2.output.LayerNorm,weight,1.0,768,"(768,)",False
+52,bert_model.encoder.layer.2.output.LayerNorm,bias,1.0,768,"(768,)",False
+53,bert_model.encoder.layer.3.attention.self.query,weight,2.388357572257314,589824,"(768, 768)",True
+54,bert_model.encoder.layer.3.attention.self.query,bias,1.4912620917381483,768,"(768,)",True
+55,bert_model.encoder.layer.3.attention.self.key,weight,2.4112931634531596,589824,"(768, 768)",True
+56,bert_model.encoder.layer.3.attention.self.key,bias,inf,768,"(768,)",True
+57,bert_model.encoder.layer.3.attention.self.value,weight,3.8002408728685504,589824,"(768, 768)",True
+58,bert_model.encoder.layer.3.attention.self.value,bias,6.2439024390243905,768,"(768,)",True
+59,bert_model.encoder.layer.3.attention.output.dense,weight,4.4357006513009,589824,"(768, 768)",True
+60,bert_model.encoder.layer.3.attention.output.dense,bias,1.7181208053691275,768,"(768,)",True
+61,bert_model.encoder.layer.3.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+62,bert_model.encoder.layer.3.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+63,bert_model.encoder.layer.3.intermediate.dense,weight,2.5719470977053676,2359296,"(3072, 768)",True
+64,bert_model.encoder.layer.3.intermediate.dense,bias,1.0878187203948957,3072,"(3072,)",True
+65,bert_model.encoder.layer.3.output.dense,weight,2.7923571255119826,2359296,"(768, 3072)",True
+66,bert_model.encoder.layer.3.output.dense,bias,1.673202614379085,768,"(768,)",True
+67,bert_model.encoder.layer.3.output.LayerNorm,weight,1.0,768,"(768,)",False
+68,bert_model.encoder.layer.3.output.LayerNorm,bias,1.0,768,"(768,)",False
+69,bert_model.encoder.layer.4.attention.self.query,weight,2.427608895349439,589824,"(768, 768)",True
+70,bert_model.encoder.layer.4.attention.self.query,bias,1.366548079807596,768,"(768,)",True
+71,bert_model.encoder.layer.4.attention.self.key,weight,2.4457989603046415,589824,"(768, 768)",True
+72,bert_model.encoder.layer.4.attention.self.key,bias,inf,768,"(768,)",True
+73,bert_model.encoder.layer.4.attention.self.value,weight,3.1437997700597826,589824,"(768, 768)",True
+74,bert_model.encoder.layer.4.attention.self.value,bias,7.111111111111111,768,"(768,)",True
+75,bert_model.encoder.layer.4.attention.output.dense,weight,3.608854820158648,589824,"(768, 768)",True
+76,bert_model.encoder.layer.4.attention.output.dense,bias,3.071999906250003,768,"(768,)",True
+77,bert_model.encoder.layer.4.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+78,bert_model.encoder.layer.4.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+79,bert_model.encoder.layer.4.intermediate.dense,weight,2.5610838571285623,2359296,"(3072, 768)",True
+80,bert_model.encoder.layer.4.intermediate.dense,bias,1.0924609056467005,3072,"(3072,)",True
+81,bert_model.encoder.layer.4.output.dense,weight,2.7674961212747142,2359296,"(768, 3072)",True
+82,bert_model.encoder.layer.4.output.dense,bias,2.048,768,"(768,)",True
+83,bert_model.encoder.layer.4.output.LayerNorm,weight,1.0,768,"(768,)",False
+84,bert_model.encoder.layer.4.output.LayerNorm,bias,1.0,768,"(768,)",False
+85,bert_model.encoder.layer.5.attention.self.query,weight,2.3447678368016756,589824,"(768, 768)",True
+86,bert_model.encoder.layer.5.attention.self.query,bias,1.5737704425946082,768,"(768,)",True
+87,bert_model.encoder.layer.5.attention.self.key,weight,2.357608007922765,589824,"(768, 768)",True
+88,bert_model.encoder.layer.5.attention.self.key,bias,inf,768,"(768,)",True
+89,bert_model.encoder.layer.5.attention.self.value,weight,3.1681671377846983,589824,"(768, 768)",True
+90,bert_model.encoder.layer.5.attention.self.value,bias,5.224489795918367,768,"(768,)",True
+91,bert_model.encoder.layer.5.attention.output.dense,weight,3.495895704168974,589824,"(768, 768)",True
+92,bert_model.encoder.layer.5.attention.output.dense,bias,3.6398102949310487,768,"(768,)",True
+93,bert_model.encoder.layer.5.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+94,bert_model.encoder.layer.5.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+95,bert_model.encoder.layer.5.intermediate.dense,weight,2.571445474930377,2359296,"(3072, 768)",True
+96,bert_model.encoder.layer.5.intermediate.dense,bias,1.1273394747916847,3072,"(3072,)",True
+97,bert_model.encoder.layer.5.output.dense,weight,2.8152008147650407,2359296,"(768, 3072)",True
+98,bert_model.encoder.layer.5.output.dense,bias,2.0589811911292766,768,"(768,)",True
+99,bert_model.encoder.layer.5.output.LayerNorm,weight,1.0,768,"(768,)",False
+100,bert_model.encoder.layer.5.output.LayerNorm,bias,1.0,768,"(768,)",False
+101,bert_model.encoder.layer.6.attention.self.query,weight,2.35711794935486,589824,"(768, 768)",True
+102,bert_model.encoder.layer.6.attention.self.query,bias,1.432835780105711,768,"(768,)",True
+103,bert_model.encoder.layer.6.attention.self.key,weight,2.3644979509099224,589824,"(768, 768)",True
+104,bert_model.encoder.layer.6.attention.self.key,bias,inf,768,"(768,)",True
+105,bert_model.encoder.layer.6.attention.self.value,weight,3.2931561159081024,589824,"(768, 768)",True
+106,bert_model.encoder.layer.6.attention.self.value,bias,4.02094232806975,768,"(768,)",True
+107,bert_model.encoder.layer.6.attention.output.dense,weight,3.6551939600424057,589824,"(768, 768)",True
+108,bert_model.encoder.layer.6.attention.output.dense,bias,2.723404255319149,768,"(768,)",True
+109,bert_model.encoder.layer.6.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+110,bert_model.encoder.layer.6.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+111,bert_model.encoder.layer.6.intermediate.dense,weight,2.5461860780186476,2359296,"(3072, 768)",True
+112,bert_model.encoder.layer.6.intermediate.dense,bias,1.150561797752809,3072,"(3072,)",True
+113,bert_model.encoder.layer.6.output.dense,weight,2.8288480445757447,2359296,"(768, 3072)",True
+114,bert_model.encoder.layer.6.output.dense,bias,1.6551723593622287,768,"(768,)",True
+115,bert_model.encoder.layer.6.output.LayerNorm,weight,1.0,768,"(768,)",False
+116,bert_model.encoder.layer.6.output.LayerNorm,bias,1.0,768,"(768,)",False
+117,bert_model.encoder.layer.7.attention.self.query,weight,2.335742391967388,589824,"(768, 768)",True
+118,bert_model.encoder.layer.7.attention.self.query,bias,1.3714285340601093,768,"(768,)",True
+119,bert_model.encoder.layer.7.attention.self.key,weight,2.3329522305083428,589824,"(768, 768)",True
+120,bert_model.encoder.layer.7.attention.self.key,bias,inf,768,"(768,)",True
+121,bert_model.encoder.layer.7.attention.self.value,weight,3.4109055474735848,589824,"(768, 768)",True
+122,bert_model.encoder.layer.7.attention.self.value,bias,2.965250877903209,768,"(768,)",True
+123,bert_model.encoder.layer.7.attention.output.dense,weight,3.697654872430125,589824,"(768, 768)",True
+124,bert_model.encoder.layer.7.attention.output.dense,bias,2.8981131241100058,768,"(768,)",True
+125,bert_model.encoder.layer.7.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+126,bert_model.encoder.layer.7.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+127,bert_model.encoder.layer.7.intermediate.dense,weight,2.6526916085299295,2359296,"(3072, 768)",True
+128,bert_model.encoder.layer.7.intermediate.dense,bias,1.079789126855922,3072,"(3072,)",True
+129,bert_model.encoder.layer.7.output.dense,weight,2.9047035091974744,2359296,"(768, 3072)",True
+130,bert_model.encoder.layer.7.output.dense,bias,1.5390782033756907,768,"(768,)",True
+131,bert_model.encoder.layer.7.output.LayerNorm,weight,1.0,768,"(768,)",False
+132,bert_model.encoder.layer.7.output.LayerNorm,bias,1.0,768,"(768,)",False
+133,bert_model.encoder.layer.8.attention.self.query,weight,2.3018958530735136,589824,"(768, 768)",True
+134,bert_model.encoder.layer.8.attention.self.query,bias,1.2821368621638465,768,"(768,)",True
+135,bert_model.encoder.layer.8.attention.self.key,weight,2.2959105552023766,589824,"(768, 768)",True
+136,bert_model.encoder.layer.8.attention.self.key,bias,inf,768,"(768,)",True
+137,bert_model.encoder.layer.8.attention.self.value,weight,3.02709810634239,589824,"(768, 768)",True
+138,bert_model.encoder.layer.8.attention.self.value,bias,3.9792744540960894,768,"(768,)",True
+139,bert_model.encoder.layer.8.attention.output.dense,weight,3.324825217058629,589824,"(768, 768)",True
+140,bert_model.encoder.layer.8.attention.output.dense,bias,2.3202416383624205,768,"(768,)",True
+141,bert_model.encoder.layer.8.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+142,bert_model.encoder.layer.8.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+143,bert_model.encoder.layer.8.intermediate.dense,weight,2.6399933784650944,2359296,"(3072, 768)",True
+144,bert_model.encoder.layer.8.intermediate.dense,bias,1.062240663900415,3072,"(3072,)",True
+145,bert_model.encoder.layer.8.output.dense,weight,2.8861266776029684,2359296,"(768, 3072)",True
+146,bert_model.encoder.layer.8.output.dense,bias,1.54527158233607,768,"(768,)",True
+147,bert_model.encoder.layer.8.output.LayerNorm,weight,1.0,768,"(768,)",False
+148,bert_model.encoder.layer.8.output.LayerNorm,bias,1.0,768,"(768,)",False
+149,bert_model.encoder.layer.9.attention.self.query,weight,2.1892604826280495,589824,"(768, 768)",True
+150,bert_model.encoder.layer.9.attention.self.query,bias,1.259016424936174,768,"(768,)",True
+151,bert_model.encoder.layer.9.attention.self.key,weight,2.201764144580957,589824,"(768, 768)",True
+152,bert_model.encoder.layer.9.attention.self.key,bias,inf,768,"(768,)",True
+153,bert_model.encoder.layer.9.attention.self.value,weight,3.1286081583882943,589824,"(768, 768)",True
+154,bert_model.encoder.layer.9.attention.self.value,bias,3.958763042283325,768,"(768,)",True
+155,bert_model.encoder.layer.9.attention.output.dense,weight,3.407949131473702,589824,"(768, 768)",True
+156,bert_model.encoder.layer.9.attention.output.dense,bias,1.7819024891190853,768,"(768,)",True
+157,bert_model.encoder.layer.9.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+158,bert_model.encoder.layer.9.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+159,bert_model.encoder.layer.9.intermediate.dense,weight,2.6157260690143977,2359296,"(3072, 768)",True
+160,bert_model.encoder.layer.9.intermediate.dense,bias,1.0406504065040652,3072,"(3072,)",True
+161,bert_model.encoder.layer.9.output.dense,weight,2.7502365874621186,2359296,"(768, 3072)",True
+162,bert_model.encoder.layer.9.output.dense,bias,1.54527158233607,768,"(768,)",True
+163,bert_model.encoder.layer.9.output.LayerNorm,weight,1.0,768,"(768,)",False
+164,bert_model.encoder.layer.9.output.LayerNorm,bias,1.0,768,"(768,)",False
+165,bert_model.encoder.layer.10.attention.self.query,weight,2.196009484460786,589824,"(768, 768)",True
+166,bert_model.encoder.layer.10.attention.self.query,bias,1.4826254389516045,768,"(768,)",True
+167,bert_model.encoder.layer.10.attention.self.key,weight,2.2097655178808653,589824,"(768, 768)",True
+168,bert_model.encoder.layer.10.attention.self.key,bias,inf,768,"(768,)",True
+169,bert_model.encoder.layer.10.attention.self.value,weight,3.0872918365948037,589824,"(768, 768)",True
+170,bert_model.encoder.layer.10.attention.self.value,bias,7.836734388828885,768,"(768,)",True
+171,bert_model.encoder.layer.10.attention.output.dense,weight,3.350892018460527,589824,"(768, 768)",True
+172,bert_model.encoder.layer.10.attention.output.dense,bias,1.8686131386861313,768,"(768,)",True
+173,bert_model.encoder.layer.10.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+174,bert_model.encoder.layer.10.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+175,bert_model.encoder.layer.10.intermediate.dense,weight,2.6329488663337006,2359296,"(3072, 768)",True
+176,bert_model.encoder.layer.10.intermediate.dense,bias,1.021276575022016,3072,"(3072,)",True
+177,bert_model.encoder.layer.10.output.dense,weight,2.7858812089442955,2359296,"(768, 3072)",True
+178,bert_model.encoder.layer.10.output.dense,bias,1.3544973544973544,768,"(768,)",True
+179,bert_model.encoder.layer.10.output.LayerNorm,weight,1.0,768,"(768,)",False
+180,bert_model.encoder.layer.10.output.LayerNorm,bias,1.0,768,"(768,)",False
+181,bert_model.encoder.layer.11.attention.self.query,weight,2.2333951035669233,589824,"(768, 768)",True
+182,bert_model.encoder.layer.11.attention.self.query,bias,1.1851851851851851,768,"(768,)",True
+183,bert_model.encoder.layer.11.attention.self.key,weight,2.262896587685709,589824,"(768, 768)",True
+184,bert_model.encoder.layer.11.attention.self.key,bias,inf,768,"(768,)",True
+185,bert_model.encoder.layer.11.attention.self.value,weight,2.6428647547875412,589824,"(768, 768)",True
+186,bert_model.encoder.layer.11.attention.self.value,bias,11.130434782608695,768,"(768,)",True
+187,bert_model.encoder.layer.11.attention.output.dense,weight,2.8455147254805633,589824,"(768, 768)",True
+188,bert_model.encoder.layer.11.attention.output.dense,bias,2.733096159615192,768,"(768,)",True
+189,bert_model.encoder.layer.11.attention.output.LayerNorm,weight,1.0,768,"(768,)",False
+190,bert_model.encoder.layer.11.attention.output.LayerNorm,bias,1.0,768,"(768,)",False
+191,bert_model.encoder.layer.11.intermediate.dense,weight,2.603817849013722,2359296,"(3072, 768)",True
+192,bert_model.encoder.layer.11.intermediate.dense,bias,1.080168776371308,3072,"(3072,)",True
+193,bert_model.encoder.layer.11.output.dense,weight,2.9613541812195865,2359296,"(768, 3072)",True
+194,bert_model.encoder.layer.11.output.dense,bias,1.8916256868569392,768,"(768,)",True
+195,bert_model.encoder.layer.11.output.LayerNorm,weight,1.0,768,"(768,)",False
+196,bert_model.encoder.layer.11.output.LayerNorm,bias,1.0,768,"(768,)",False
+197,bert_model.pooler.dense,weight,6.756985256211981,589824,"(768, 768)",True
+198,bert_model.pooler.dense,bias,3.226890652860412,768,"(768,)",True
+199,classifier,weight,1.0,1536,"(2, 768)",False
+200,classifier,bias,1.0,2,"(2,)",False

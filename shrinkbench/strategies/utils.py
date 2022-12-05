@@ -110,6 +110,7 @@ def activation_importance(weight, activation, norm=1):
         return weight * norms.mean()
 
 def activation_importance_no_weight(weight, activation, norm=1):
+    
     activation = activation.mean(axis=0)  # reduce batch dim
     norms = norms_tensor(activation, norm)
     # add filter dims

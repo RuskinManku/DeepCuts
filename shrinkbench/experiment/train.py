@@ -124,7 +124,10 @@ class TrainingExperiment(Experiment):
             self.optim.load_state_dict(previous['optim_state_dict'])
 
         # Assume classification experiment
-        self.loss_func = nn.CrossEntropyLoss()
+        if self.dataset_name=='STSBDATA':
+            self.loss_func=nn.MSELoss()
+        else:
+            self.loss_func = nn.CrossEntropyLoss()
 
     def to_device(self):
         # Torch CUDA config
@@ -156,7 +159,8 @@ class TrainingExperiment(Experiment):
                 # Checkpoint epochs
                 # TODO Model checkpointing based on best val loss/acc
                 if epoch % self.save_freq == 0:
-                    self.checkpoint()
+                    pass
+                    # self.checkpoint()
                 # TODO Early stopping
                 # TODO ReduceLR on plateau?
                 self.log(timestamp=time.time()-since)
@@ -185,7 +189,7 @@ class TrainingExperiment(Experiment):
 
         with torch.set_grad_enabled(train):
             for i, (x, y) in enumerate(epoch_iter, start=1):
-                if self.dataset_name=="SST2DATA":
+                if self.dataset_name in ["SST2DATA", 'STSBDATA']:
                     y =y.to(self.device)
                 else:
                     x, y = x.to(self.device), y.to(self.device)

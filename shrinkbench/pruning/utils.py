@@ -69,18 +69,15 @@ def get_activations(model, input):
     activations = OrderedDict()
 
     def store_activations(module, input, output):
-        print(module)
+        
         if module in activations:
-            # TODO ResNet18 implementation reuses a
-            # single ReLU layer?
             return
         assert module not in activations, \
             f"{module} already in activations"
-        # TODO [0] means first input, not all models have a single input
-        #print(output)
         if type(output) == type(()):
+            assert len(output)==1
             output = output[0]
-        if hasattr(output, 'last_hidden_state'):#transformers.modeling_outputs.BaseModelOutputWithPastAndCrossAttentions):
+        if hasattr(output, 'last_hidden_state'):
             output = output.last_hidden_state
 
         activations[module] = (output.detach().cpu().numpy().copy())
@@ -112,22 +109,64 @@ def get_gradients(model, inputs, outputs):
     pass
 
 
-def get_param_gradients(model, inputs, outputs, loss_func=None, by_module=True):
+def get_param_gradients(model, inputs, outputs, loss_func=None, by_module=True, include_smoothing = False):
 
     gradients = OrderedDict()
 
+    def smoothing_grads(module, input, output):
+
+        # if type(output) == type(()):
+        #     assert len(output)==1
+        #     output = output[0]
+        # if hasattr(output, 'last_hidden_state'):
+        #     output = output.last_hidden_state
+        
+        if isinstance(module,torch.nn.Embedding) or isinstance(module,torch.nn.LayerNorm):
+            return None
+        
+        if type(input) == type(()) and isinstance(module,torch.nn.Linear):
+            assert len(input)==1
+            input = input[0]
+        
+        # print(module)
+        # print(input.shape)
+
+        # if include_smoothing and hasattr(module, 'weight') and hasattr(module, 'bias'):
+        #     output = output + torch.matmul((torch.randn_like(module.weight)*1e-3), input) + torch.randn_like(module.bias)*1e-3
+        # elif include_smoothing and hasattr(module, 'bias'):
+        #     output = output + torch.randn_like(module.bias)*1e-3
+        # elif include_smoothing and hasattr(module, 'weight'):
+        #     output = output + torch.matmul((torch.randn_like(module.weight)*1e-3), input)
+        # elif include_smoothing:
+        #     print('module without weights and biases found: ', module)
+
+        if include_smoothing and (hasattr(module, 'weight') or hasattr(module, 'bias')):
+            output = output + torch.randn_like(output)*1e-3
+        
+        return output
+    
+    if include_smoothing:
+        fn, hooks = hook_applyfn(smoothing_grads, model, forward=True)
+        model.apply(fn)
+
     if loss_func is None:
         loss_func = nn.CrossEntropyLoss()
+    
 
     training = model.training
-    print("LMAo")
     model.train()
     model = model.to('cuda:0')
     outputs = outputs.to('cuda:0')
-    pred = model(inputs)
-    loss = loss_func(pred, outputs)
-    loss.backward()
-    print("end")
+    smoothing_cycles = 10
+    if include_smoothing:
+        for i in range(smoothing_cycles):
+            pred = model(inputs)
+            loss = loss_func(pred, outputs)
+            loss.backward()
+    else:
+        pred = model(inputs)
+        loss = loss_func(pred, outputs)
+        loss.backward()
     model = model.to('cpu')
 
     if by_module:
@@ -136,16 +175,26 @@ def get_param_gradients(model, inputs, outputs, loss_func=None, by_module=True):
             assert module not in gradients
             for name, param in module.named_parameters(recurse=False):
                 if param.requires_grad and param.grad is not None:
-                    gradients[module][name] = param.grad.detach().cpu().numpy().copy()
+                    if include_smoothing:
+                        gradients[module][name] = param.grad.detach().cpu().numpy().copy()/smoothing_cycles
+                    else:
+                        gradients[module][name] = param.grad.detach().cpu().numpy().copy()
 
     else:
         gradients = OrderedDict()
         for name, param in model.named_parameters():
             assert name not in gradients
             if param.requires_grad and param.grad is not None:
-                gradients[name] = param.grad.detach().cpu().numpy().copy()
+                if include_smoothing:
+                    gradients[name] = param.grad.detach().cpu().numpy().copy()/smoothing_cycles
+                else:
+                    gradients[name] = param.grad.detach().cpu().numpy().copy()
+
 
     model.zero_grad()
+    if include_smoothing:
+        for h in hooks:
+            h.remove()  
     model.train(training)
 
     return gradients

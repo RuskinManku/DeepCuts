@@ -8,4 +8,5 @@ from .datasets import (MNIST,
                        CIFAR100,
                        ImageNet,
                        Places365,
-                       SST2DATA)
+                       SST2DATA,
+                       STSBDATA)
