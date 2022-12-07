@@ -26,7 +26,7 @@ class TrainingExperiment(Experiment):
 
     default_train_kwargs = {'optim': 'Adam',
                             'epochs': 30,
-                            'lr': 2e-5,
+                            'lr': 1e-5,
                             }
 
     def __init__(self,

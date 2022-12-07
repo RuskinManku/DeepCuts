@@ -198,3 +198,29 @@ def STSBDATA(train=True, path=None):
         out=load_dataset("stsb_multi_mt", name="en", split="dev")
         out_dl=STSBDL(out)
     return out_dl
+
+class WNLIDL(Dataset):
+    def __init__(self, hug_data):
+        """
+        Args:
+            csv_file (string): Path to the csv file with annotations.
+            root_dir (string): Directory with all the images.
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.hug_data=hug_data
+
+    def __len__(self):
+        return len(self.hug_data)
+
+    def __getitem__(self, idx):
+        return ((self.hug_data[idx]['sentence1'],self.hug_data[idx]['sentence2']),self.hug_data[idx]['label'])
+
+def WNLIDATA(train=True,path=None):
+    if(train):
+        out=load_dataset('glue','wnli', split="train")
+        out_dl=WNLIDL(out)
+    else:
+        out=load_dataset('glue','wnli', split="validation")
+        out_dl=WNLIDL(out)
+    return out_dl

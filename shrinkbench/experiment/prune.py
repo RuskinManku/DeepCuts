@@ -55,9 +55,9 @@ class PruningExperiment(TrainingExperiment):
             print(i)
 
             x2,y2 = next(iterator, (None, None))
-            to_steps=2
+            to_steps=1000
             if strategy in ('LayerSmoothGrad','LayerSmoothGradCAM'):
-                to_steps=2
+                to_steps=100
             if x2!=None and i<to_steps and strategy in ('LayerGradCAM','GlobalGradCAMShift','GlobalGradCAM','LayerSmoothGrad','LayerSmoothGradCAM','LayerGradCAMShift'):
                 self.pruning.inputs = x
                 self.pruning.outputs = y
