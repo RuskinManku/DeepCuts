@@ -158,9 +158,8 @@ class TrainingExperiment(Experiment):
                 self.eval(epoch)
                 # Checkpoint epochs
                 # TODO Model checkpointing based on best val loss/acc
-                if epoch % self.save_freq == 0:
-                    pass
-                    # self.checkpoint()
+                if epoch % self.save_freq == 0: 
+                    self.checkpoint()
                 # TODO Early stopping
                 # TODO ReduceLR on plateau?
                 self.log(timestamp=time.time()-since)

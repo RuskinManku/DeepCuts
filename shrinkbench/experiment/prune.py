@@ -84,9 +84,9 @@ class PruningExperiment(TrainingExperiment):
         self.save_metrics()
 
         # if self.pruning.compression > 1:
-        self.epochs=7
+        self.epochs=3
         self.run_epochs()
-        self.epochs=10
+        self.epochs=1
         if self.is_LTH:
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:

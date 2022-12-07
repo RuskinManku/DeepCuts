@@ -159,6 +159,7 @@ def get_param_gradients(model, inputs, outputs, loss_func=None, by_module=True, 
     outputs = outputs.to('cuda:0')
     if isinstance(loss_func,nn.MSELoss):
         outputs=outputs.float()
+        outputs=outputs.view(-1,1)
     smoothing_cycles = 10
     if include_smoothing:
         for i in range(smoothing_cycles):
