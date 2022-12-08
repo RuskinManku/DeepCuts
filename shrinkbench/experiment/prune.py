@@ -56,9 +56,9 @@ class PruningExperiment(TrainingExperiment):
 
             x2,y2 = next(iterator, (None, None))
             to_steps=1000
-            if strategy in ('LayerSmoothGrad','LayerSmoothGradCAM'):
+            if strategy in ('LayerSmoothGrad','LayerSmoothGradCAM','LayerSmoothGradCAMShift'):
                 to_steps=100
-            if x2!=None and i<to_steps and strategy in ('LayerGradCAM','GlobalGradCAMShift','GlobalGradCAM','LayerSmoothGrad','LayerSmoothGradCAM','LayerGradCAMShift'):
+            if x2!=None and i<to_steps and strategy in ('LayerGradCAM','GlobalGradCAMShift','GlobalGradCAM','LayerSmoothGrad','LayerSmoothGradCAM','LayerGradCAMShift','LayerSmoothGradCAMShift'):
                 self.pruning.inputs = x
                 self.pruning.outputs = y
                 self.pruning.apply(make_mask = False, next_iter = True)
@@ -75,7 +75,6 @@ class PruningExperiment(TrainingExperiment):
         printc("Masked model", color='GREEN')
 
     def run(self):
-        print("Running bitch")
         self.freeze()
         printc(f"Running {repr(self)}", color='YELLOW')
         self.to_device()
@@ -84,9 +83,9 @@ class PruningExperiment(TrainingExperiment):
         self.save_metrics()
 
         # if self.pruning.compression > 1:
-        self.epochs=3
+        self.epochs=5
         self.run_epochs()
-        self.epochs=1
+        self.epochs=12
         if self.is_LTH:
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:
@@ -117,7 +116,7 @@ class PruningExperiment(TrainingExperiment):
         metrics['compression_ratio'] = size / size_nz
 
         x, y = next(iter(self.val_dl))
-        if self.dataset_name in ["SST2DATA", 'STSBDATA']:
+        if self.dataset_name in ["SST2DATA", 'STSBDATA','COLADATA']:
             pass
         else:
             x, y = x.to(self.device), y.to(self.device)

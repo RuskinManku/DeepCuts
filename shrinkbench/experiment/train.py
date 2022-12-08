@@ -40,7 +40,7 @@ class TrainingExperiment(Experiment):
                  pretrained=False,
                  resume=None,
                  resume_optim=False,
-                 save_freq=10,
+                 save_freq=1,
                  is_LTH=False):
 
         # Default children kwargs
@@ -158,8 +158,9 @@ class TrainingExperiment(Experiment):
                 self.eval(epoch)
                 # Checkpoint epochs
                 # TODO Model checkpointing based on best val loss/acc
-                if epoch % self.save_freq == 0: 
-                    self.checkpoint()
+                # if epoch % self.save_freq == 0:
+                    # print("SAVING") 
+                    # self.checkpoint()
                 # TODO Early stopping
                 # TODO ReduceLR on plateau?
                 self.log(timestamp=time.time()-since)
@@ -188,7 +189,7 @@ class TrainingExperiment(Experiment):
 
         with torch.set_grad_enabled(train):
             for i, (x, y) in enumerate(epoch_iter, start=1):
-                if self.dataset_name in ["SST2DATA", 'STSBDATA']:
+                if self.dataset_name in ["SST2DATA", 'STSBDATA','COLADATA']:
                     y =y.to(self.device)
                     if self.dataset_name=="STSBDATA":
                         y=y.float()

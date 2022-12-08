@@ -214,13 +214,13 @@ class WNLIDL(Dataset):
         return len(self.hug_data)
 
     def __getitem__(self, idx):
-        return ((self.hug_data[idx]['sentence1'],self.hug_data[idx]['sentence2']),self.hug_data[idx]['label'])
+        return (self.hug_data[idx]['sentence'],self.hug_data[idx]['label'])
 
-def WNLIDATA(train=True,path=None):
+def COLADATA(train=True,path=None):
     if(train):
-        out=load_dataset('glue','wnli', split="train")
+        out=load_dataset('glue','cola', split="train")
         out_dl=WNLIDL(out)
     else:
-        out=load_dataset('glue','wnli', split="validation")
+        out=load_dataset('glue','cola', split="validation")
         out_dl=WNLIDL(out)
     return out_dl
