@@ -9,4 +9,5 @@ from .datasets import (MNIST,
                        ImageNet,
                        Places365,
                        SST2DATA,
-                       STSBDATA)
+                       STSBDATA,
+                       WNLIDATA)

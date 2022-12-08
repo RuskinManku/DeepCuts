@@ -86,7 +86,7 @@ class PruningExperiment(TrainingExperiment):
         # if self.pruning.compression > 1:
         self.epochs=3
         self.run_epochs()
-        self.epochs=1
+        self.epochs=8
         if self.is_LTH:
             print("Now pruning and returning model to initial state, for running again")
             if self.initial_state is None:
@@ -117,7 +117,7 @@ class PruningExperiment(TrainingExperiment):
         metrics['compression_ratio'] = size / size_nz
 
         x, y = next(iter(self.val_dl))
-        if self.dataset_name in ["SST2DATA", 'STSBDATA']:
+        if self.dataset_name in ["SST2DATA", 'STSBDATA','WNLIDATA']:
             pass
         else:
             x, y = x.to(self.device), y.to(self.device)

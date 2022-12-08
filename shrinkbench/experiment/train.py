@@ -188,7 +188,7 @@ class TrainingExperiment(Experiment):
 
         with torch.set_grad_enabled(train):
             for i, (x, y) in enumerate(epoch_iter, start=1):
-                if self.dataset_name in ["SST2DATA", 'STSBDATA']:
+                if self.dataset_name in ["SST2DATA", 'STSBDATA','WNLIDATA']:
                     y =y.to(self.device)
                     if self.dataset_name=="STSBDATA":
                         y=y.float()

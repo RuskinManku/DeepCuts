@@ -3,6 +3,7 @@ import pathlib
 
 from .BertNet import BertNet
 from .BertModelSTSB import BertModelSTSB
+from .BertModelWNLI import BertModelWNLI
 from .head import replace_head
 from .mnistnet import MnistNet
 from .cifar_resnet import (resnet20,
