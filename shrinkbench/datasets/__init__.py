@@ -10,4 +10,8 @@ from .datasets import (MNIST,
                        Places365,
                        SST2DATA,
                        STSBDATA,
+<<<<<<< HEAD
                        COLADATA)
+=======
+                       WNLIDATA)
+>>>>>>> 3b7267860f6bb111577e2177e16ba4d3c0be9ee2
